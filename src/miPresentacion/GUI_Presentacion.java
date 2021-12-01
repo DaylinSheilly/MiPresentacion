@@ -4,8 +4,7 @@ import javax.security.auth.callback.TextOutputCallback;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 
 public class GUI_Presentacion extends JFrame {
     //atributos
@@ -44,11 +43,13 @@ public class GUI_Presentacion extends JFrame {
         this.add(panelDatos, BorderLayout.CENTER);
 
         miFoto = new JButton("Este soy yo");
-        miFoto.addActionListener(escucha);
+        miFoto.addMouseListener(escucha);
+        miFoto.addKeyListener(escucha);
         miHobby = new JButton("Este es mi hobby");
-        miHobby.addActionListener(escucha);
+        miHobby.addMouseListener(escucha);
+        miHobby.addKeyListener(escucha);
         misExpectativas = new JButton("Creo que...");
-        misExpectativas.addActionListener(escucha);
+        misExpectativas.addKeyListener(escucha);
 
         panelBotones = new JPanel();
         panelBotones.add(miFoto);
@@ -71,48 +72,115 @@ public class GUI_Presentacion extends JFrame {
         });
     }
 
-    private class Escucha implements ActionListener{
+    private class Escucha extends MouseAdapter implements KeyListener{
         private ImageIcon image;
         private Image imagenOtroTamanho;
         private ImageIcon imagenNuevoTamanho;
+
         @Override
-        public void actionPerformed(ActionEvent e) {
-            //JOptionPane.showMessageDialog(null, "presionaste el botón");
+        public void mouseClicked(MouseEvent e){
             panelDatos.removeAll();
             if(e.getSource()==miFoto){
+
                 image = new ImageIcon(getClass().getResource("/recursos/miFoto.jpeg"));
                 imagenOtroTamanho = image.getImage().getScaledInstance(500, 650, Image.SCALE_SMOOTH);
                 imagenNuevoTamanho = new ImageIcon(imagenOtroTamanho);
                 labelImagen.setIcon(imagenNuevoTamanho);
                 panelDatos.add(labelImagen);
+            }
+            else if(e.getSource()==miHobby){
 
-            }else{
-                if(e.getSource()==miHobby){
+                if(e.getClickCount()==2){
+
                     image = new ImageIcon(getClass().getResource("/recursos/miHobby.jpeg"));
                     imagenOtroTamanho = image.getImage().getScaledInstance(550, 600, Image.SCALE_SMOOTH);
                     imagenNuevoTamanho = new ImageIcon(imagenOtroTamanho);
                     labelImagen.setIcon(imagenNuevoTamanho);
                     panelDatos.add(labelImagen);
+                }
+            }
+            revalidate();
+            repaint();
+        }
 
-                }else{
+        @Override
+        public void keyTyped(KeyEvent e)
+        {
+
+        }
+
+        @Override
+        public void keyPressed(KeyEvent e)
+        {
+            panelDatos.removeAll();
+            if(e.getSource()==miFoto){
+
+                if (e.VK_M == e.getKeyCode()){
                     textoExpectativas.setText("Espero aprender a programar en Java de manera\n"
-                                             +"óptima y profesional. También espero que la\n"
-                                             +"profesora nos comparta sus experiencias y\n"
-                                             +"recomendaciones en el mundo laboral para saber\n"
-                                             +"cómo debemos encaminarnos al programar.\n"
-                                             +"\nTengo cero experiencia programando en Java,\n"
-                                             +"pero hasta ahora he aprendido programación\n"
-                                             +"funcional en Javascript e introducción a\n"
-                                             +"programación orientada a objetos en C++.\n");
+                            +"óptima y profesional. También espero que la\n"
+                            +"profesora nos comparta sus experiencias y\n"
+                            +"recomendaciones en el mundo laboral para saber\n"
+                            +"cómo debemos encaminarnos al programar.\n"
+                            +"\nTengo cero experiencia programando en Java,\n"
+                            +"pero hasta ahora he aprendido programación\n"
+                            +"funcional en Javascript e introducción a\n"
+                            +"programación orientada a objetos en C++.\n");
 
                     textoExpectativas.setBackground(Color.WHITE);
                     textoExpectativas.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.pink));
                     textoExpectativas.setFont(new Font(Font.MONOSPACED, Font.PLAIN+Font.PLAIN, 20));
                     panelDatos.add(textoExpectativas);
                 }
+                revalidate();
+                repaint();
             }
-            revalidate();
-            repaint();
+            else if(e.getSource()==miHobby){
+                if (e.VK_M == e.getKeyCode()){
+
+                    textoExpectativas.setText("Espero aprender a programar en Java de manera\n"
+                            +"óptima y profesional. También espero que la\n"
+                            +"profesora nos comparta sus experiencias y\n"
+                            +"recomendaciones en el mundo laboral para saber\n"
+                            +"cómo debemos encaminarnos al programar.\n"
+                            +"\nTengo cero experiencia programando en Java,\n"
+                            +"pero hasta ahora he aprendido programación\n"
+                            +"funcional en Javascript e introducción a\n"
+                            +"programación orientada a objetos en C++.\n");
+
+                    textoExpectativas.setBackground(Color.WHITE);
+                    textoExpectativas.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.pink));
+                    textoExpectativas.setFont(new Font(Font.MONOSPACED, Font.PLAIN+Font.PLAIN, 20));
+                    panelDatos.add(textoExpectativas);
+                }
+                revalidate();
+                repaint();
+            }else{
+                if (e.VK_M == e.getKeyCode()) {
+
+                    textoExpectativas.setText("Espero aprender a programar en Java de manera\n"
+                            +"óptima y profesional. También espero que la\n"
+                            +"profesora nos comparta sus experiencias y\n"
+                            +"recomendaciones en el mundo laboral para saber\n"
+                            +"cómo debemos encaminarnos al programar.\n"
+                            +"\nTengo cero experiencia programando en Java,\n"
+                            +"pero hasta ahora he aprendido programación\n"
+                            +"funcional en Javascript e introducción a\n"
+                            +"programación orientada a objetos en C++.\n");
+
+                    textoExpectativas.setBackground(Color.WHITE);
+                    textoExpectativas.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.pink));
+                    textoExpectativas.setFont(new Font(Font.MONOSPACED, Font.PLAIN+Font.PLAIN, 20));
+                    panelDatos.add(textoExpectativas);
+                }
+                revalidate();
+                repaint();
+            }
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e)
+        {
+
         }
     }
 
